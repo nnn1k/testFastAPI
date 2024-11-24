@@ -5,7 +5,7 @@ from alchemy.queries.user_queries import get_user, add_user
 
 from modules.auth.utils import validate_password, hash_password
 from modules.auth.AuthJWT import jwt_token
-from schemas.UserSchemas import UserAuth, UserCreate
+from schemas.UserSchemas import UserAuth, UserCreate, UserResponse
 
 ACCESS_TOKEN = 'access_token'
 REFRESH_TOKEN = 'refresh_token'
@@ -42,7 +42,7 @@ def get_user_by_token(
     access_token=Cookie(None),
     refresh_token=Cookie(None),
     request: Request = None,
-):
+) -> UserResponse:
     if access_token is None:
         response = check_refresh_token(refresh_token, request)
 

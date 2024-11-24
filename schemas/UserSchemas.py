@@ -29,7 +29,7 @@ class UserResponse(BaseModel):
 class UserInDB(UserResponse):
     password: bytes
 
-class UserInDBWithRel(UserInDB):
+class UserResponseWithRel(UserResponse):
     categories: Optional[list['CategoriesResponse']]
 
 
