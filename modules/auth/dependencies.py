@@ -7,8 +7,8 @@ from modules.auth.utils import validate_password, hash_password
 from modules.auth.AuthJWT import jwt_token
 from schemas.UserSchemas import UserAuth, UserCreate
 
-COOKIE_ACCESS_TOKEN = 'access_token'
-COOKIE_REFRESH_TOKEN = 'refresh_token'
+ACCESS_TOKEN = 'access_token'
+REFRESH_TOKEN = 'refresh_token'
 
 def validate_user(
     reg_user: UserAuth,
@@ -72,8 +72,8 @@ def check_refresh_token(refresh_token, request: Request):
                 detail="invalid token (refresh)",
             )
         response = RedirectResponse(url=referer_url)
-        response.set_cookie(key=COOKIE_ACCESS_TOKEN, value=new_access_token)
-        response.set_cookie(key=COOKIE_REFRESH_TOKEN, value=new_refresh_token)
+        response.set_cookie(key=ACCESS_TOKEN, value=new_access_token)
+        response.set_cookie(key=REFRESH_TOKEN, value=new_refresh_token)
         return response
     except Exception as e:
         return RedirectResponse(url=login_url)
