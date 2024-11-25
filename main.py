@@ -12,7 +12,7 @@ router = APIRouter(
 
 @router.get("/users/me", response_model=UserResponse)
 def auth_user_check_self_info(
-        user: UserResponse = Depends(get_user_by_token),
+    user: UserResponse = Depends(get_user_by_token),
 ):
     return user.model_dump()
 

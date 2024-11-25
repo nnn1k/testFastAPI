@@ -1,7 +1,8 @@
 import datetime
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Extra
+
 
 class UserAuth(BaseModel):
     login: str
@@ -25,6 +26,8 @@ class UserResponse(BaseModel):
     email: EmailStr
     created_at: datetime.datetime
     updated_at: datetime.datetime
+
+
 
 class UserInDB(UserResponse):
     password: bytes

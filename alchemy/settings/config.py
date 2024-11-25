@@ -1,7 +1,7 @@
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    Server: str = 'NNN1KPC\\SQLEXPRESS'
+    Server: str = 'NNN1K\\SQLEXPRESS'
     Database: str = 'alchemy'
 
     @property

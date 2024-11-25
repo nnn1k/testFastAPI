@@ -35,7 +35,7 @@ def register_user(
         raise unauthed_exc
     reg_user.password = hash_password(reg_user.password)
     user = add_user(reg_user)
-    return user
+    return UserResponse.model_validate(user, from_attributes=True)
 
 
 def get_user_by_token(

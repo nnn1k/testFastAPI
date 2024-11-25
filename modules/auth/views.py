@@ -20,7 +20,7 @@ router = APIRouter(
 @router.post('/login')
 def login_views(
     response: Response,
-    user: UserInDB = Depends(validate_user),
+    user: UserResponse = Depends(validate_user),
 ):
     access_token = jwt_token.create_access_token(id=user.id)
     refresh_token = jwt_token.create_refresh_token(id=user.id)
@@ -32,7 +32,7 @@ def login_views(
             refresh_token=refresh_token,
         )
     return {
-        'user': user.model_dump(),
+        'user': user.model_dump(exclude='password'),
         'token': token.model_dump()
     }
 
