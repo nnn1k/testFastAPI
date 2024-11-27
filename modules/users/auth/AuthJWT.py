@@ -80,7 +80,8 @@ class AuthJWT:
             refresh_token = self.create_refresh_token(id=id)
             return access_token, refresh_token
         except Exception as e:
-            print(e)
+            print(f'error:{e}')
             return None, None
+
 
 jwt_token = AuthJWT()

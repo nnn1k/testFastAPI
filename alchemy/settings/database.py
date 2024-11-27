@@ -11,17 +11,24 @@ engine = create_engine(
 
 session_factory = sessionmaker(engine)
 
-created_at = Annotated[datetime.datetime,
-    mapped_column(server_default=text('dateadd(hour, 3, getutcdate())'))]
+created_at = Annotated[
+    datetime.datetime,
+    mapped_column(server_default=text('dateadd(hour, 3, getutcdate())'))
+]
 
-updated_at = Annotated[datetime.datetime, mapped_column(
-    server_default=text('dateadd(hour, 3, getutcdate())'),
-    onupdate=lambda: datetime.datetime.utcnow() + datetime.timedelta(hours=3))]
+updated_at = Annotated[
+    datetime.datetime,
+    mapped_column(
+        server_default=text('dateadd(hour, 3, getutcdate())'),
+        onupdate=lambda: datetime.datetime.utcnow() + datetime.timedelta(hours=3)
+    )
+]
 
 intpk = Annotated[int, mapped_column(primary_key=True)]
 
+
 class Base(DeclarativeBase):
-    repr_cols_num = 3
+    repr_cols_num = 10
     repr_cols = tuple()
 
     def __repr__(self):

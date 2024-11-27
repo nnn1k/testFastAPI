@@ -10,7 +10,7 @@ class UsersAl(Base):
     id: Mapped[intpk]
     nickname: Mapped[str]
     login: Mapped[str]
-    password: Mapped[str]
+    password: Mapped[bytes]
     email: Mapped[str]
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
