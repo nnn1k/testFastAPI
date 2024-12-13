@@ -4,9 +4,9 @@ from sqlalchemy import select, delete
 
 from alchemy.models import UsersAl
 from alchemy.settings.database import session_factory
-from modules.users.auth.schemas import UserCreate
-from modules.users.auth.utils import validate_password
-from modules.users.user_schemas import UserResponseModel, UserModel
+from api.users.auth.schemas import UserCreate
+from api.users.auth.utils import validate_password
+from api.users.user_schemas import UserResponseModel, UserModel
 
 
 def get_user_for_login(login: str, password: str) -> Optional[UserResponseModel]:
@@ -37,6 +37,7 @@ def add_user(user: UserCreate) -> UserModel:
         result_user = UserModel.model_validate(user, from_attributes=True)
         session.commit()
     return result_user
+
 
 def delete_user(user_id):
     with session_factory() as session:

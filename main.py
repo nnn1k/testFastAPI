@@ -1,24 +1,18 @@
 import pytest
-from fastapi import FastAPI, APIRouter, Request
-from modules.users import auth_router
-from modules.users import users_router
+from fastapi import FastAPI, Request
+from fastapi.responses import RedirectResponse
+import uvicorn
+
+
+from api import router as api_router
 
 app = FastAPI()
-router = APIRouter(
-    prefix="/api",
-)
+
+@app.get('/', include_in_schema=False)
+def root():
+    return RedirectResponse(url='/docs')
 
 
-@router.get("/get-cookies")
-def get_cookies(
-       request: Request
-):
-    return {
-        'cookies': request.cookies,
-    }
+app.include_router(api_router)
 
-
-router.include_router(auth_router)
-router.include_router(users_router)
-app.include_router(router)
-pytest.main(["modules/users/auth/tests.py"])
+pytest.main(["api/users/auth/tests.py"])

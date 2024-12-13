@@ -1,5 +1,4 @@
 import datetime
-from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 
@@ -20,9 +19,6 @@ class UserModel(UserBaseModel):
 
 class UserResponseModel(UserBaseModel):
     pass
-
-class UserModelWithRel(UserBaseModel):
-    categories: Optional[list['CategoriesResponse']]
 
 
 

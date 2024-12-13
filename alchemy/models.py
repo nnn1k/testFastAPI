@@ -7,24 +7,19 @@ from sqlalchemy import ForeignKey, CheckConstraint
 class UsersAl(Base):
     __tablename__ = 'users'
 
-    id: Mapped[intpk]
     nickname: Mapped[str]
     login: Mapped[str]
     password: Mapped[bytes]
     email: Mapped[str]
-    created_at: Mapped[created_at]
-    updated_at: Mapped[updated_at]
 
     categories: Mapped[list["CategoriesAl"]] = relationship(back_populates='user')
 
 class CategoriesAl(Base):
     __tablename__ = 'categories'
 
-    id: Mapped[intpk]
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
     name: Mapped[str]
-    created_at: Mapped[created_at]
-    updated_at: Mapped[updated_at]
+    description: Mapped[str] = mapped_column(nullable=True)
 
     user: Mapped['UsersAl'] = relationship(
         back_populates='categories',
@@ -37,15 +32,12 @@ class CategoriesAl(Base):
 class TransactionsAl(Base):
     __tablename__ = 'transactions'
 
-    id: Mapped[intpk]
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
     transaction_type: Mapped[str]
     amount: Mapped[float]
     category_id: Mapped[int] = mapped_column(ForeignKey('categories.id'))
     date: Mapped[datetime.date]
     notes: Mapped[str] = mapped_column(nullable=True)
-    created_at: Mapped[created_at]
-    updated_at: Mapped[updated_at]
 
     category: Mapped['CategoriesAl'] = relationship(
         back_populates='transactions',

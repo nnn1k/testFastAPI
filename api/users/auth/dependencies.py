@@ -1,10 +1,10 @@
 from fastapi import HTTPException
 from starlette import status
 
-from modules.users.auth.queries import add_user, get_user_for_login
-from modules.users.auth.schemas import UserAuth, UserCreate
-from modules.users.auth.utils import hash_password
-from modules.users.user_schemas import UserModel
+from api.users.auth.queries import add_user, get_user_for_login
+from api.users.auth.schemas import UserAuth, UserCreate
+from api.users.auth.utils import hash_password
+from api.users.user_schemas import UserModel
 
 
 def validate_user(
@@ -16,10 +16,8 @@ def validate_user(
     )
     user = get_user_for_login(login=reg_user.login, password=reg_user.password)
     if not user:
-
         raise login_exc
     return user
-
 
 def register_user(
     reg_user: UserCreate,

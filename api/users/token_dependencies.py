@@ -1,10 +1,10 @@
 from fastapi import HTTPException, status, Cookie, Request
 from fastapi.responses import RedirectResponse
 
-from modules.users.user_queries import get_user
+from api.users.user_queries import get_user
 
-from modules.users.auth.AuthJWT import jwt_token
-from modules.users.user_schemas import UserResponseModel
+from api.users.auth.AuthJWT import jwt_token
+from api.users.user_schemas import UserResponseModel
 
 ACCESS_TOKEN = 'access_token'
 REFRESH_TOKEN = 'refresh_token'

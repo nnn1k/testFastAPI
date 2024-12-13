@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from modules.users.auth.queries import delete_user
+from api.users.auth.queries import delete_user
 from main import app
 
 client = TestClient(app)

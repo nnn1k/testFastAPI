@@ -1,4 +1,4 @@
-from sqlalchemy.orm import sessionmaker, DeclarativeBase, mapped_column
+from sqlalchemy.orm import sessionmaker, DeclarativeBase, mapped_column, Session, Mapped
 from sqlalchemy import create_engine, text
 from alchemy.settings.config import settings
 from typing import Annotated
@@ -30,6 +30,10 @@ intpk = Annotated[int, mapped_column(primary_key=True)]
 class Base(DeclarativeBase):
     repr_cols_num = 10
     repr_cols = tuple()
+
+    id: Mapped[intpk]
+    created_at: Mapped[created_at]
+    updated_at: Mapped[updated_at]
 
     def __repr__(self):
         cols = []

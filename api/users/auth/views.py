@@ -1,22 +1,22 @@
 from fastapi import Depends, APIRouter, Response
 from fastapi.responses import RedirectResponse
 
-from modules.users.auth.AuthJWT import jwt_token
-from modules.users.token_dependencies import (
+from api.users.auth.AuthJWT import jwt_token
+from api.users.token_dependencies import (
     get_user_by_token,
     ACCESS_TOKEN,
     REFRESH_TOKEN
 )
-from modules.users.auth.dependencies import validate_user, register_user
-from modules.users.user_schemas import UserModel
-from modules.users.auth.utils import Token
+from api.users.auth.dependencies import validate_user, register_user
+from api.users.user_schemas import UserModel
+from api.users.auth.utils import Token
 
 router = APIRouter(
     prefix='/auth',
     tags=['auth'],
 )
 
-@router.post('/login')
+@router.post('/login', summary='Вход в аккаунт')
 def login_views(
     response: Response,
     user: UserModel = Depends(validate_user),
@@ -32,17 +32,17 @@ def login_views(
         )
     return {
         'user': user.model_dump(exclude='password'),
-        'token': token.model_dump()
+        'token': token
     }
 
 
-@router.post('/register')
+@router.post('/register', summary='Регистрация нового пользователя')
 def register_views(
     user: UserModel = Depends(register_user)
 ):
     return RedirectResponse(url='/api/auth/login')
 
-@router.post('/logout')
+@router.post('/logout', summary='Выход с аккаунта')
 def logout_views(
     response: Response,
     user: UserModel = Depends(get_user_by_token)
