@@ -8,7 +8,7 @@ class TestRepository(AlchemyRepository):
     db_model = UsersAl
     schema = UserModel
 
-def test_works_repository():
+def test_repository():
     test = TestRepository()
     get_all(test)
     add_id = add_one(test)

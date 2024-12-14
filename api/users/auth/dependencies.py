@@ -1,9 +1,10 @@
 from fastapi import HTTPException
 from starlette import status
 
-from api.users.auth.queries import add_user, get_user_for_login
+
 from api.users.auth.schemas import UserAuth, UserCreate
-from api.users.auth.utils import hash_password
+from api.users.auth.utils import hash_password, validate_password
+from api.users.repository import get_user_repo
 from api.users.user_schemas import UserModel
 
 
@@ -14,8 +15,9 @@ def validate_user(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="invalid nickname or password",
     )
-    user = get_user_for_login(login=reg_user.login, password=reg_user.password)
-    if not user:
+    user_repo = get_user_repo()
+    user = user_repo.get_one(login=reg_user.login)
+    if not user or not validate_password(password=reg_user.password, hashed_password=user.password):
         raise login_exc
     return user
 
@@ -26,8 +28,16 @@ def register_user(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="user is exist",
     )
-    if get_user_for_login(login=reg_user.login, password=reg_user.password):
+    user_repo = get_user_repo()
+
+    if user_repo.get_one(login=reg_user.login):
         raise register_exc
-    reg_user.password = hash_password(reg_user.password)
-    user = add_user(reg_user)
+    user = user_repo.add_one(
+        login=reg_user.login,
+        password=hash_password(reg_user.password),
+        nickname=reg_user.nickname,
+        email=reg_user.email
+    )
     return user
+
+

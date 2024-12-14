@@ -1,8 +1,6 @@
 import pytest
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
-import uvicorn
-
 
 from api import router as api_router
 
@@ -16,3 +14,4 @@ def root():
 app.include_router(api_router)
 
 pytest.main(["api/users/auth/tests.py"])
+pytest.main(["alchemy/utils/test_repository.py"])

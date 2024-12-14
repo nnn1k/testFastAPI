@@ -1,5 +1,5 @@
 from alchemy.settings.database import engine, Base
-from alchemy.models import *
+from alchemy.models import UsersAl, CategoriesAl, TransactionsAl
 
 def create_tables():
     Base.metadata.drop_all(engine)

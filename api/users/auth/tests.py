@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from api.users.auth.queries import delete_user
+from api.users.repository import get_user_repo
 from main import app
 
 client = TestClient(app)
@@ -24,7 +24,7 @@ def test_register():
 
 def test_login():
     response = client.post('/api/auth/login', json=test_user)
-    print(response.json())
+
     assert response.status_code == 200
     assert response.json().get('user') is not None
     assert response.json().get('user').get('password') is None
@@ -36,7 +36,9 @@ def test_logout():
     access_token = response.json().get('token').get('access_token')
     user_id = response.json().get('user').get('id')
     response = client.post('/api/auth/logout', headers={"Authorization": f"Bearer {access_token}"})
-    delete_user(user_id)
+    user_repo = get_user_repo()
+    user_repo.delete_one(id=user_id)
+
     assert response.status_code == 200
     assert response.json().get('status') is not None
 

@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import List, Dict, Optional
 
 from pydantic import BaseModel
-from sqlalchemy import insert, select, update, delete
+from sqlalchemy import insert, select
 from sqlalchemy.orm import Session
 
 from alchemy.settings.database import session_factory, Base
@@ -54,17 +54,15 @@ class AlchemyRepository(AbstractRepository):
                 .filter_by(**kwargs)
             )
             res = session.execute(query)
+
             data = res.scalars().one_or_none()
+
             if data is None:
                 return None
             return self.schema.model_validate(data, from_attributes=True)
 
     def add_one(self, **kwargs) -> Optional[BaseModel]:
         with session_factory() as session:
-            user = self.get_one(login=kwargs.get('login'))
-            if user:
-                print({'error': 'user is exist'})
-                return None
             query = (
                 insert(self.db_model)
                 .values(**kwargs)
@@ -108,4 +106,3 @@ class AlchemyRepository(AbstractRepository):
             print({'error': 'model_id is missing'})
             return None
         return session.get(self.db_model, model_id)
-

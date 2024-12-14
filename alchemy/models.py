@@ -1,6 +1,8 @@
 import datetime
+from typing import List
+
 from sqlalchemy.orm import Mapped, relationship, mapped_column
-from alchemy.settings.database import Base, intpk, created_at, updated_at
+from alchemy.settings.database import Base
 from sqlalchemy import ForeignKey, CheckConstraint
 
 
@@ -12,7 +14,9 @@ class UsersAl(Base):
     password: Mapped[bytes]
     email: Mapped[str]
 
-    categories: Mapped[list["CategoriesAl"]] = relationship(back_populates='user')
+    categories: Mapped[List["CategoriesAl"]] = relationship(
+        back_populates='user'
+    )
 
 class CategoriesAl(Base):
     __tablename__ = 'categories'
@@ -25,7 +29,7 @@ class CategoriesAl(Base):
         back_populates='categories',
     )
 
-    transactions: Mapped[list['TransactionsAl']] = relationship(
+    transactions: Mapped[List['TransactionsAl']] = relationship(
         back_populates='category',
     )
 
