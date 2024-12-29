@@ -1,17 +1,14 @@
-import pytest
-from fastapi import FastAPI, Request, Response
-from fastapi.responses import RedirectResponse
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 
 from api import router as api_router
-
-from sqladmin import Admin
-from alchemy.settings.database import engine
-from api.admin import UserAdmin, CategoryAdmin
-
+from modules.run_pages import router as front_router
+from modules.admin.admin_setup import create_admin
 
 app = FastAPI()
+
+app.mount("/front", StaticFiles(directory="front"), name="static")
 
 app.add_middleware(
     CORSMiddleware,
@@ -21,24 +18,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get('/', include_in_schema=False)
-def root():
-    return RedirectResponse(url='/docs')
-
-
-templates = Jinja2Templates(directory='front')
-@app.get('/auth', include_in_schema=False)
-def auth(request: Request):
-    return templates.TemplateResponse('login.html', {'request': request})
-
-@app.get('/me', include_in_schema=False)
-def me(request: Request):
-    return templates.TemplateResponse('me.html', {'request': request})
-admin = Admin(app, engine)
-admin.add_view(UserAdmin)
-admin.add_view(CategoryAdmin)
-
+create_admin(app)
 app.include_router(api_router)
-
-pytest.main(["api/users/auth/tests.py"])
-pytest.main(["alchemy/utils/test_repository.py"])
+app.include_router(front_router, include_in_schema=False)

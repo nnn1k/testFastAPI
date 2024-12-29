@@ -8,7 +8,7 @@ router.include_router(auth_router)
 router.include_router(users_router)
 router.include_router(category_router)
 
-@router.get("/get-cookies")
+@router.get("/get-cookies", summary='Проверить cookie')
 def get_cookies(
        request: Request
 ):

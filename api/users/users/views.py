@@ -14,7 +14,7 @@ def auth_user_check_self_info(
     user = get_user_with_rel(user)
 
     return {
-        'user': user.model_dump(exclude='categories')
+        'user': user
     }
 
 @router.put("/me", summary="Редактировать информацию о себе")

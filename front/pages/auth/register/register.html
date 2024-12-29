@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Регистрация {% endblock %}</title>
+    <link rel="stylesheet" href="/front/pages/auth/auth.css">
+    <script type="module" src="/front/pages/auth/register/register.js" defer></script>
+</head>
+<body>
+    {% extends 'base/base.html' %}
+    {% block content %}
+    <div class="container">
+        <h1>Регистрация</h1>
+        <form id="registerForm">
+            <label for="nickname">Имя</label>
+            <input id="nickname" type="text" required>
+
+            <label for="email">Email</label>
+            <input id="email" type="text" required>
+
+            <label for="login">Логин</label>
+            <input id="login" type="text" required>
+
+            <label for="password">Пароль</label>
+            <input id="password" type="password" required>
+
+            <input type="button" value="Зарегистрироваться" onclick="register()" class="submit-button">
+        </form>
+    </div>
+    {% endblock %}
+</body>
+</html>

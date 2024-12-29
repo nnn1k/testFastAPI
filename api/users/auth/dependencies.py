@@ -29,7 +29,6 @@ def register_user(
         detail="user is exist",
     )
     user_repo = get_user_repo()
-
     if user_repo.get_one(login=reg_user.login):
         raise register_exc
     user = user_repo.add_one(
