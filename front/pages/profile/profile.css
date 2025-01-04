@@ -1,0 +1,35 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+
+ul {
+    padding-left: 0;
+}
+
+li {
+    margin-left: 0;
+    margin-bottom: 30px;
+    font-size: 30px;
+    list-style-type: none;
+}
+
+input[type="button"] {
+    width: 300px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.user-section,
+.category-section {
+    border: 0px solid black;
+    width: 50%;
+    padding-left: 15%;
+}
+
+

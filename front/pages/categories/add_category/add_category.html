@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="module" src="/front/pages/categories/add_category/add_category.js" defer></script>
+</head>
+{% extends 'base/base.html' %}
+{% block content %}
+    <body>
+    <div class="container">
+        <form id="add-category">
+            <label for="name">Название</label>
+            <input id="name" type="text" required>
+
+            <label for="description">Описание</label>
+            <input id="description" type="text">
+            <input type="button" value="Изменить" onclick="add_category()" class="submit-button">
+        </form>
+    </div>
+    </body>
+{% endblock %}
+</html>

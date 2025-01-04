@@ -14,7 +14,14 @@ from alchemy.schemas_with_rel import UserModelWithRel
 
 def update_user(user: UserResponseModel, new_user_data: UserUpdate) -> UserModel:
     user_repo = get_user_repo()
-    new_user = user_repo.update_one(id=user.id, nickname=new_user_data.nickname, email=new_user_data.email)
+    if new_user_data.nickname and new_user_data.email:
+        new_user = user_repo.update_one(id=user.id, nickname=new_user_data.nickname, email=new_user_data.email)
+    elif new_user_data.nickname:
+        new_user = user_repo.update_one(id=user.id, nickname=new_user_data.nickname)
+    elif new_user_data.email:
+        new_user = user_repo.update_one(id=user.id, email=new_user_data.email)
+    else:
+        new_user = user_repo.update_one(id=user.id)
     return new_user.model_dump(exclude='password')
 
 

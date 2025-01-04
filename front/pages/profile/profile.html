@@ -2,19 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title> Мой профиль</title>
     <script type="module" src="/front/pages/profile/profile.js" defer></script>
+    <link rel="stylesheet" href="/front/pages/profile/profile.css">
 </head>
+{% extends 'base/base.html' %}
+{% block content %}
 <body>
-    <h1 id="name"> Привет, </h1>
-    <h3> Список категорий</h3>
-    <div class="categories" id="categories">
-        <div class="category">
-            <p id="category-name">1</p>
-            <p id="category-description">1</p>
-            <p id="category-create-at">1</p>
-            <p id="category-update-at">1</p>
-        </div>
-    </div>
+    <section class="category-section">
+        <h1>Список категорий</h1>
+        <a href="http://127.0.0.1:8000/categories/add"><input type="button" value="Добавить категорию"></a>
+        <ul id="categories"></ul>
+
+    </section>
+    <section class="user-section">
+        <h1 id="name"></h1>
+        <a href="http://127.0.0.1:8000/profile/update"><input type="button" value="Изменить данные?"></a>
+        <ul id="user-info"></ul>
+    </section>
 </body>
+{% endblock %}
 </html>

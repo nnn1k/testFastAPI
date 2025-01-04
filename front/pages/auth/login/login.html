@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="/front/pages/auth/auth.css">
     <script type="module" src="/front/pages/auth/login/login.js" defer></script>
 </head>
-<body>
-    {% extends 'base/base.html' %}
+{% extends 'base/base.html' %}
     {% block content %}
+<body>
+
     <div class="container">
         <h1>Вход в систему</h1>
-        <form id="loginForm">
+        <form id="login-form">
             <label for="login">Логин</label>
             <input id="login" type="text" required>
 
@@ -22,6 +23,7 @@
             <input type="button" value="Отправить" onclick="auth()" class="submit-button">
         </form>
     </div>
-    {% endblock %}
+
 </body>
+{% endblock %}
 </html>

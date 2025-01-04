@@ -1,10 +1,11 @@
 import datetime
+from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 
 class UserUpdate(BaseModel):
-    nickname: str = None
-    email: EmailStr = None
+    nickname: Optional[str] = None
+    email: Optional[EmailStr] = None
 
 class UserBaseModel(BaseModel):
     id: int

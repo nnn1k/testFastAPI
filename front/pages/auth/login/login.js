@@ -1,8 +1,8 @@
 import {apiUrl, makeRequest} from '../../../js/utils.js';
 
 async function auth() {
-    let login = document.getElementById("login").value
-    let password = document.getElementById("password").value
+    const login = document.getElementById("login").value
+    const password = document.getElementById("password").value
     const response = await makeRequest({
         method: 'POST',
         url: '/api/auth/login',

@@ -30,7 +30,6 @@ def get_user_by_token(
 
 def check_refresh_token(refresh_token, request: Request):
     login_url = "/api/auth/login"
-    referer_url = request.headers.get("Referer", "/api/auth/login")
     if refresh_token is None:
         return RedirectResponse(url=login_url)
     try:

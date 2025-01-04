@@ -11,17 +11,33 @@ async function getMe() {
         url: '/api/users/me',
     })
     if (response.user) {
-        document.getElementById('name').innerHTML += response.user.nickname;
-         const categoriesContainer = document.getElementById('categories');
-         categoriesContainer.innerHTML = '';
-         response.user.categories.forEach(category => {
-                const categoryElement = document.createElement('div');
-                categoryElement.innerHTML = `
-                <h3>Название:  ${category.name}</h3>
-                <p>Описание:  ${category.description}</p>
-                <p>Дата создания:  ${formatDateTime(category.created_at)}</p>
-                <p>Дата обновления:  ${formatDateTime(category.updated_at)}</p>`;
-                categoriesContainer.appendChild(categoryElement);
-            });
+        getCategories(response.user.categories)
+        getUserInfo(response.user)
     }
+}
+
+function getCategories(categories) {
+    const categoriesContainer = document.getElementById('categories');
+    categoriesContainer.innerHTML = '';
+    categories.forEach(category => {
+        const categoryName = document.createElement('li')
+        const nameLink = document.createElement('a')
+        categoryName.className = 'category-name'
+        nameLink.textContent = category.name
+        nameLink.title = 'Подробнее'
+        nameLink.href = apiUrl + '/categories/' + category.id
+        categoryName.appendChild(nameLink)
+        categoriesContainer.appendChild(categoryName);
+    });
+}
+
+function getUserInfo(user) {
+    document.getElementById('name').innerHTML = 'Привет, ' + user.login;
+    const userInfo = document.getElementById('user-info')
+    const nickname = document.createElement('li')
+    nickname.textContent = 'Псевдоним: ' + user.nickname
+    userInfo.appendChild(nickname)
+    const email = document.createElement('li')
+    email.textContent = 'Почта: ' + user.email
+    userInfo.appendChild(email)
 }
