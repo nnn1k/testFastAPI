@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     getMe();
 })
 
+
 async function getMe() {
     const response = await makeRequest({
         method: 'GET',

@@ -26,9 +26,14 @@ def profile(request: Request):
 def profile(request: Request):
     return templates.TemplateResponse('/pages/categories/add_category/add_category.html', {'request': request})
 
+@router.get('/categories/{category_id}')
+def profile(request: Request):
+    return templates.TemplateResponse('/pages/categories/category.html', {'request': request})
+
 @router.get('/base')
 def profile(request: Request):
     return templates.TemplateResponse('/base/base.html', {'request': request})
+
 @router.get('/')
 def go_to_docs():
     return RedirectResponse(url='/docs')

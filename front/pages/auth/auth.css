@@ -35,5 +35,13 @@ h1 {
     color: #007bff;
 }
 
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: calc(100vh - 100px);
+    min-width: 100%;
+}
 
 

@@ -1,6 +1,4 @@
-from fastapi import HTTPException
-from starlette import status
-
+from fastapi import HTTPException, status
 
 from api.users.auth.schemas import UserAuth, UserCreate
 from api.users.auth.utils import hash_password, validate_password

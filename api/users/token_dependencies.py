@@ -28,7 +28,7 @@ def get_user_by_token(
         detail=f"not authenticated",
     )
 
-def check_refresh_token(refresh_token, request: Request):
+def check_refresh_token(refresh_token):
     login_url = "/api/auth/login"
     if refresh_token is None:
         return RedirectResponse(url=login_url)

@@ -68,11 +68,15 @@ input[type="button"] {
 input[type="button"]:hover {
     background-color: #0056b3;
 }
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    min-height: calc(100vh - 100px);
-    min-width: 100%;
+
+
+ul {
+    padding-left: 0;
+}
+
+li {
+    margin-left: 10px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    list-style-type: none;
 }
